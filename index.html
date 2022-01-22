@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/atom-one-light.min.css"
+  />
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>metrics</title>
+  </head>
+  <style>
+    pre {
+      margin: 0;
+    }
+
+    pre code.hljs,
+    .hljs {
+      display: inline;
+      margin: 0;
+      background: none;
+    }
+  </style>
+  <body>
+    <pre>
+Demo page for metrics.js 📈👀
+<a href="">Github</a>
+
+Minimal effort way of tracking the amount of visitors on your website
+<code>
+// Example usage:
+import http from 'http'
+import { metrics } from 'metrics'
+
+// init the package with a mongodb url
+const stats = await metrics({ mongourl: 'mongodb://localhost:27017/' })
+        
+const httpServer = http.createServer(async (req, res) => {
+  // add recorder in request handler
+  stats.record(req, res)
+  
+  // get stats somewhere in your app
+  // range param can be either:
+  // '2021,1,1' -> returns visitor count from date to now
+  // '2021,1,1-2021,12,31' -> returns visitor count between dates
+  // second | minute | hour | day | month | year -> helpers
+  res.end(await range('month'))
+})
+
+httpServer.listen(3333, () => console.log("running on http://localhost:3333"))
+
+// api
+metrics.record(req, res) // track visitor
+metrics.curretly()       // current number of visitors
+metrics.get()            // get all stats
+metrics.range(from, to)  // get stats within date range
+
+// stats for this page:</code>
+There are currently <span class="currently">0</span> visitor(s) on this page
+<a href="/?all">All</a>
+<a href="/?range=second">Last second</a>
+<a href="/?range=minute">Last minute</a>
+<a href="/?range=hour">Last hour</a>
+<a href="/?range=day">Last day</a>
+<a href="/?range=month">Last month</a>
+<a href="/?range=year">Last year</a>
+</pre>
+    <script defer>
+      hljs.highlightAll()
+      ;(async () => {
+        const currently = document.querySelector('.currently')
+        currently.textContent = await fetch('/currently').then(res =>
+          res.text()
+        )
+      })()
+    </script>
+  </body>
+</html>

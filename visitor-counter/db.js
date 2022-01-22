@@ -1,0 +1,25 @@
+import { MongoClient } from 'mongodb'
+
+export const db = (url, dbName = 'metrics-db') => {
+  return new Promise(resolve => {
+    MongoClient.connect(`${url}/${dbName}`, (err, db) => {
+      if (err) throw err
+
+      const dbo = db.db(dbName)
+      const database = dbo.collection('visitor')
+
+      resolve({
+        set: obj => database.insertOne(obj),
+        get: (obj = {}) =>
+          new Promise(resolve => {
+            database
+              .find(obj, { projection: { _id: 0 } })
+              .toArray((err, result) => {
+                if (err) throw err
+                resolve(result)
+              })
+          }),
+      })
+    })
+  })
+}

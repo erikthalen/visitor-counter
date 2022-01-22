@@ -1,0 +1,23 @@
+{
+  "name": "visitor-counter",
+  "version": "1.0.0",
+  "description": "Tracks number of visitors on your website",
+  "main": "visitor-counter/index.js",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erikthalen/visitor-counter.git"
+  },
+  "scripts": {
+    "dev": "nodemon demo.js",
+    "start": "node demo.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@supercharge/request-ip": "^1.1.2",
+    "geoip-lite": "^1.4.3",
+    "mongodb": "^4.3.1"
+  }
+}
