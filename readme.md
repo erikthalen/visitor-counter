@@ -1,10 +1,10 @@
 ```js
 // Example usage:
 import http from 'http'
-import { metrics } from 'metrics'
+import { visitorCounter } from 'visitor-counter'
 
 // init the package with a mongodb url
-const stats = await metrics({ mongourl: 'mongodb://localhost:27017/' })
+const stats = await visitorCounter({ mongourl: 'mongodb://localhost:27017/' })
 
 const httpServer = http.createServer(async (req, res) => {
   // add recorder in request handler
@@ -21,8 +21,8 @@ const httpServer = http.createServer(async (req, res) => {
 httpServer.listen(3333, () => console.log('running on http://localhost:3333'))
 
 // api
-metrics.record(req, res) // track visitor
-metrics.curretly()       // current number of visitors
-metrics.get()            // get all stats
-metrics.range(from, to)  // get stats within date range
+stats.record(req, res) // track visitor
+stats.curretly()       // current number of visitors
+stats.get()            // get all stats
+stats.range(from, to)  // get stats within date range
 ```
