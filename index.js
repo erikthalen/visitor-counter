@@ -9,12 +9,15 @@ export default `<!DOCTYPE html>
   <body>
     <code>
       <pre style="margin: 0;">Demo page for visitor-counter 📈👀
-<a href="https://github.com/erikthalen/visitor-counter">Github</a>
 
-Minimal effort way of tracking the amount of visitors on your website
+<a href="https://github.com/erikthalen/visitor-counter">Github</a>
+<a href="https://www.npmjs.com/package/visitor-counter">NPM</a>
+
+Minimal effort way of tracking the
+amount of visitors on your website
 
 Stats for this page:
-There are currently <span class="currently">0</span> visitor(s) on this page
+There are currently <span class="currently">0</span> visitor(s)
 <a href="/?all">All</a>
 <a href="/?range=second">Last second</a>
 <a href="/?range=minute">Last minute</a>

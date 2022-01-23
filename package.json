@@ -1,6 +1,6 @@
 {
   "name": "visitor-counter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Tracks number of visitors on your website",
   "main": "lib/index.js",
   "type": "module",
