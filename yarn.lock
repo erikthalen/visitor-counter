@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-"@supercharge/request-ip@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@supercharge/request-ip/-/request-ip-1.1.2.tgz#be9083aa50d3c6fc200f3ed5919e0b9c13fc8842"
-  integrity sha512-mtryG/uiSIVT0ga8A/F9hNEuBSbDxW7/m9PEtxIHqdkE/vr766m17mtLPhrXA4q4T+Qw44+33mg3Rtkl7o+OvQ==
-
 "@types/node@*":
   version "17.0.10"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.10.tgz#616f16e9d3a2a3d618136b1be244315d95bd7cab"
