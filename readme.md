@@ -24,7 +24,8 @@ const httpServer = http.createServer(async (req, res) => {
 })
 
 httpServer.listen(3333, () => console.log("running on http://localhost:3333"))
-
+```
+```js
 // api
 stats.record(req, res) // track visitor
 stats.curretly()       // current number of visitors
