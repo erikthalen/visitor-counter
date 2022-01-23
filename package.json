@@ -1,9 +1,12 @@
 {
   "name": "visitor-counter",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Tracks number of visitors on your website",
-  "main": "visitor-counter/index.js",
+  "main": "lib/index.js",
   "type": "module",
+  "files": [
+    "/lib"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/erikthalen/visitor-counter.git"
