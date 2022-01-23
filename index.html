@@ -9,7 +9,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>metrics</title>
+    <title>visitor-counter</title>
   </head>
   <style>
     pre {
@@ -25,17 +25,17 @@
   </style>
   <body>
     <pre>
-Demo page for metrics.js 📈👀
+Demo page for visitor-counter 📈👀
 <a href="https://github.com/erikthalen/visitor-counter">Github</a>
 
 Minimal effort way of tracking the amount of visitors on your website
 <code>
 // Example usage:
 import http from 'http'
-import { metrics } from 'metrics'
+import { visitorCounter } from 'visitor-counter'
 
 // init the package with a mongodb url
-const stats = await metrics({ mongourl: 'mongodb://localhost:27017/' })
+const stats = await visitorCounter({ mongourl: 'mongodb://localhost:27017/' })
         
 const httpServer = http.createServer(async (req, res) => {
   // add recorder in request handler
@@ -46,7 +46,9 @@ const httpServer = http.createServer(async (req, res) => {
   // '2021,1,1' -> returns visitor count from date to now
   // '2021,1,1-2021,12,31' -> returns visitor count between dates
   // second | minute | hour | day | month | year -> helpers
-  res.end(await range('month'))
+  const lastMonthVisitors = await stats.range('month')
+  
+  res.end(lastMonthVisitors)
 })
 
 httpServer.listen(3333, () => console.log("running on http://localhost:3333"))

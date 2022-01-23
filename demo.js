@@ -1,8 +1,9 @@
 import http from 'http'
 import fs from 'fs'
-import { metrics, utilities } from './visitor-counter/index.js'
+import { visitorCounter } from './lib/index.js'
+import * as utilities from './utils.js'
 
-const stats = await metrics({ mongourl: 'mongodb://localhost:27017/' })
+const stats = await visitorCounter()
 
 const dom = string => JSON.stringify(string, null, 2)
 
