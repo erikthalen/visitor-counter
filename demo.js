@@ -1,7 +1,7 @@
 import http from 'http'
-import fs from 'fs'
 import { visitorCounter } from './lib/index.js'
 import * as utilities from './utils.js'
+import index from './index.js'
 
 const stats = await visitorCounter({ id: 'demo-page', ttl: 1000 * 60 * 30 })
 
@@ -20,7 +20,7 @@ const httpServer = http.createServer(async (req, res) => {
     return
   }
 
-  if (req.url === '/') res.end(fs.readFileSync('index.html'))
+  if (req.url === '/') res.end(index)
   if (req.url === '/currently') res.end(stats.curretly().toString())
 })
 
