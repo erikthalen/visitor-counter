@@ -32,3 +32,10 @@ stats.curretly()       // current number of visitors
 stats.get()            // get all stats
 stats.range(from, to)  // get stats within date range
 ```
+
+options:
+| Name     | Description                                           | Type   | Default                      |
+|----------|-------------------------------------------------------|--------|------------------------------|
+| mongourl | url to mongodb server                                 | String | 'mongodb://localhost:27017/' |
+| id       | collections name prefix, when using multiple counters | String | 'default'                    |
+| ttl      | time in ms between visitors are flushed               | Number | 3600000                      |
