@@ -3,7 +3,7 @@ import fs from 'fs'
 import { visitorCounter } from './lib/index.js'
 import * as utilities from './utils.js'
 
-const stats = await visitorCounter({ id: 'demo-page', ttl: 1000 * 60 })
+const stats = await visitorCounter({ id: 'demo-page', ttl: 1000 * 60 * 30 })
 
 const dom = string => JSON.stringify(string, null, 2)
 
