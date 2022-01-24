@@ -4,7 +4,7 @@ https://counter.xxxxxxxxxx.xyz/
 ```js
 // Example usage:
 import http from 'http'
-import { visitorCounter } from 'visitor-counter'
+import visitorCounter from 'visitor-counter'
 
 // init the package with a mongodb url
 const stats = await visitorCounter({ mongourl: 'mongodb://localhost:27017/' })
@@ -17,7 +17,7 @@ const httpServer = http.createServer(async (req, res) => {
   // range param can be either:
   // '2021,1,1' -> returns visitor count from date to now
   // '2021,1,1-2021,12,31' -> returns visitor count between dates
-  // second | minute | hour | day | month | year -> helpers
+  // second | minute | hour | day | week | month | year -> helpers
   const lastMonthVisitors = await stats.range('month')
   
   res.end(JSON.stringify(lastMonthVisitors))

@@ -1,27 +1,29 @@
 import http from 'http'
-import { visitorCounter } from './lib/index.js'
-import * as utilities from './utils.js'
-import index from './index.js'
+import url from 'url'
+import indexHtml from './html.js'
+import visitorCounter from './lib/index.js'
+
+const params = (req, param) => {
+  const query = url.parse(req.url, true).query
+  return query[param] || typeof query[param] === 'string'
+}
 
 const stats = await visitorCounter({ id: 'demo-page', ttl: 1000 * 60 * 30 })
-
-const dom = string => JSON.stringify(string, null, 2)
 
 const httpServer = http.createServer(async (req, res) => {
   stats.record(req, res)
 
-  if (utilities.params(req, 'all')) {
-    res.end(dom(await stats.get()))
-    return
+  if (params(req, 'all')) {
+    const response = await stats.get()
+    res.end(JSON.stringify(response, null, 2))
   }
 
-  if (utilities.params(req, 'range')) {
-    res.end(dom(await stats.range(utilities.params(req, 'range'))))
-    return
+  if (params(req, 'range')) {
+    const result = await stats.range(params(req, 'range'))
+    res.end(JSON.stringify(result, null, 2))
   }
 
-  if (req.url === '/') res.end(index)
-  if (req.url === '/currently') res.end(stats.curretly().toString())
+  if (req.url === '/') res.end(indexHtml)
 })
 
 httpServer.listen(3333, () => console.log('running on http://localhost:3333'))

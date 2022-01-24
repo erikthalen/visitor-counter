@@ -1,22 +1,24 @@
-import { api } from './visitor-counter/api.js'
 import { db } from './visitor-counter/db.js'
 
-const randomIP = () =>
-  `${Math.floor(Math.random() * 255)}.${Math.floor(
-    Math.random() * 255
-  )}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`
+const zero255 = () => Math.floor(Math.random() * 255)
+const randomIP = () => `${zero255()}.${zero255()}.${zero255()}.${zero255()}`
 
-const database = await db('mongodb://localhost:27017/')
+const database = await db({
+  mongourl: 'mongodb://localhost:27017/',
+  id: 'demo-page',
+})
 
-export const run = () => {
-  const data = [...Array(30000)]
-    .map(() => api.createFromIP(randomIP()))
-    .map(item => ({
-      ...item,
+export const makeSomeFakeVisitors = () => {
+  ;[...Array(30000)].map(() => {
+    const ip = randomIP()
+    const location = geoip.lookup(ip)
+
+    database.set({
+      ip,
+      country: location?.country || false,
       date: Math.floor(Date.now() - Math.random() * 10000000000),
-    }))
-
-  data.forEach(database.set)
+    })
+  })
 }
 
-run()
+makeSomeFakeVisitors()
