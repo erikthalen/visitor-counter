@@ -1,6 +1,6 @@
 {
   "name": "visitor-counter",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Tracks number of visitors on your website",
   "main": "lib/index.js",
   "type": "module",
@@ -12,14 +12,25 @@
     "url": "git+https://github.com/erikthalen/visitor-counter.git"
   },
   "scripts": {
-    "dev": "nodemon demo.js",
-    "start": "node demo.js"
+    "dev": "nodemon demo/server.js",
+    "start": "node demo/server.js",
+    "express": "nodemon demo/express.js"
   },
-  "keywords": [],
+  "keywords": [
+    "node",
+    "server",
+    "visitors",
+    "stats",
+    "counter",
+    "express"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "geoip-lite": "^1.4.3",
+    "fast-geoip": "^1.1.56",
     "mongodb": "^4.3.1"
+  },
+  "devDependencies": {
+    "express": "^4.17.2"
   }
 }

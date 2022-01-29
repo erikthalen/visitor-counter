@@ -1,17 +1,17 @@
 import http from 'http'
 import url from 'url'
 import indexHtml from './html.js'
-import visitorCounter from './lib/index.js'
+import visitorCounter from '../lib/index.js'
 
 const params = (req, param) => {
   const query = url.parse(req.url, true).query
   return query[param] || typeof query[param] === 'string'
 }
 
-const stats = await visitorCounter({ id: 'demo-page', ttl: 1000 * 60 * 30 })
+const stats = await visitorCounter({ id: 'demo-page', ttl: 60 * 30 })
 
 const httpServer = http.createServer(async (req, res) => {
-  stats.record(req, res)
+  await stats.record(req, res)
 
   if (params(req, 'all')) {
     const response = await stats.get()
@@ -19,7 +19,7 @@ const httpServer = http.createServer(async (req, res) => {
   }
 
   if (params(req, 'range')) {
-    const result = await stats.range(params(req, 'range'))
+    const result = await stats.get(params(req, 'range'))
     res.end(JSON.stringify(result, null, 2))
   }
 
