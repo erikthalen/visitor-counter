@@ -1,6 +1,8 @@
 Minimal effort way of tracking the
 amount of visitors on your website
 
+[NPM](https://www.npmjs.com/package/visitor-counter)
+
 Demo:  
 https://counter.xxxxxxxxxx.xyz/
 
@@ -34,7 +36,7 @@ httpServer.listen(3333, () => console.log('running on http://localhost:3333'))
 import express from 'express'
 import visitorCounter from 'visitor-counter'
 const app = express()
-const stats = await visitorCounter({ mongourl: 'mongodb://localhost:27017/' })
+const stats = await visitorCounter()
 
 app.use(await stats.record)
 
@@ -50,7 +52,7 @@ app.listen(3000)
 stats.record(req, res) // track visitor
 stats.get() // get all stats
 stats.get(from, to) // get stats within date range
-stats.visitors() // get vurrent amount of visitors
+stats.visitors() // get current amount of visitors
 ```
 
 options:
