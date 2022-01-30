@@ -17,6 +17,9 @@
     "type": "git",
     "url": "git+https://github.com/erikthalen/visitor-counter.git"
   },
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com"
+  },
   "scripts": {
     "dev": "nodemon demo/server.mjs",
     "start": "node demo/server.mjs",
