@@ -17,10 +17,10 @@ https://counter.xxxxxxxxxx.xyz/
 ```js
 // Node http server
 import http from 'http'
-import visitorCounter from 'visitor-counter'
+import counter from 'visitor-counter'
 
 // init the package with a mongodb url
-const stats = await visitorCounter({ mongourl: 'mongodb://localhost:27017/' })
+const stats = await counter({ mongourl: 'mongodb://localhost:27017/' })
 
 const httpServer = http.createServer(async (req, res) => {
   // add recorder in request handler
@@ -42,9 +42,9 @@ httpServer.listen(3333, () => console.log('running on http://localhost:3333'))
 ```js
 // Express
 import express from 'express'
-import visitorCounter from 'visitor-counter'
+import counter from 'visitor-counter'
 const app = express()
-const stats = await visitorCounter()
+const stats = await counter()
 
 app.use(await stats.record)
 

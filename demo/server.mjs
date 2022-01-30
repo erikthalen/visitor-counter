@@ -1,14 +1,14 @@
 import http from 'http'
 import url from 'url'
-import indexHtml from './html.js'
-import visitorCounter from '../lib/index.js'
+import indexHtml from './html.mjs'
+import counter from '../lib/index.mjs'
 
 const params = (req, param) => {
   const query = url.parse(req.url, true).query
   return query[param] || typeof query[param] === 'string'
 }
 
-const stats = await visitorCounter({ id: 'demo-page', ttl: 1800 })
+const stats = await counter({ id: 'demo-page', ttl: 1800 })
 
 const httpServer = http.createServer(async (req, res) => {
   await stats.record(req, res)

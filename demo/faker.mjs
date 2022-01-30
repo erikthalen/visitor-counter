@@ -1,5 +1,5 @@
 import geoip from 'fast-geoip'
-import { db } from '../lib/db.js'
+import { db } from '../lib/db.mjs'
 
 const zero255 = () => Math.floor(Math.random() * 255)
 const randomIP = () => `${zero255()}.${zero255()}.${zero255()}.${zero255()}`

@@ -1,20 +1,27 @@
 {
   "name": "visitor-counter",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Tracks number of visitors on your website",
-  "main": "lib/index.js",
-  "type": "module",
+  "main": "./dist/visitor-counter.cjs.js",
+  "module": "./dist/visitor-counter.esm.mjs",
+  "exports": {
+    ".": {
+      "require": "./dist/visitor-counter.cjs.js",
+      "import": "./dist/visitor-counter.esm.mjs"
+    }
+  },
   "files": [
-    "/lib"
+    "/dist"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/erikthalen/visitor-counter.git"
   },
   "scripts": {
-    "dev": "nodemon demo/server.js",
-    "start": "node demo/server.js",
-    "express": "nodemon demo/express.js"
+    "dev": "nodemon demo/server.mjs",
+    "start": "node demo/server.mjs",
+    "express": "nodemon demo/express.mjs",
+    "build": "rollup -c"
   },
   "keywords": [
     "node",
@@ -31,6 +38,8 @@
     "mongodb": "^4.3.1"
   },
   "devDependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "rollup": "^2.66.1",
+    "rollup-plugin-terser": "^7.0.2"
   }
 }
