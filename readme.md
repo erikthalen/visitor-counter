@@ -64,7 +64,7 @@ await stats.get(from, to) // get stats within date range
 await stats.visitors() // get current amount of visitors
 ```
 
-options:
+## Options:
 | Name | Description | Type | Default |
 |----------|-------------------------------------------------------|--------|------------------------------|
 | `mongourl` | url to mongodb server | String | `'mongodb://localhost:27017'` |
