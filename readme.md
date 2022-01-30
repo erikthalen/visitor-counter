@@ -58,6 +58,6 @@ stats.visitors() // get current amount of visitors
 options:
 | Name | Description | Type | Default |
 |----------|-------------------------------------------------------|--------|------------------------------|
-| mongourl | url to mongodb server | String | 'mongodb://localhost:27017/' |
-| id | collections name prefix, when using multiple counters | String | 'default' |
-| ttl | time in s between visitors are flushed | Number | 3600 |
+| `mongourl` | url to mongodb server | String | 'mongodb://localhost:27017/' |
+| `id` | collections name prefix, when using multiple counters | String | 'default' |
+| `ttl` | time in s between visitors are flushed | Number | 3600 |

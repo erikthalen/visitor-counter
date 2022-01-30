@@ -8,7 +8,7 @@ const params = (req, param) => {
   return query[param] || typeof query[param] === 'string'
 }
 
-const stats = await visitorCounter({ id: 'demo-page', ttl: 60 * 30 })
+const stats = await visitorCounter({ id: 'demo-page', ttl: 1800 })
 
 const httpServer = http.createServer(async (req, res) => {
   await stats.record(req, res)
@@ -20,6 +20,11 @@ const httpServer = http.createServer(async (req, res) => {
 
   if (params(req, 'range')) {
     const result = await stats.get(params(req, 'range'))
+    res.end(JSON.stringify(result, null, 2))
+  }
+
+  if (params(req, 'current')) {
+    const result = await stats.visitors()
     res.end(JSON.stringify(result, null, 2))
   }
 
