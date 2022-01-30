@@ -1,13 +1,21 @@
-Minimal effort way of tracking the
-amount of visitors on your website
+# Visitor counter
 
-[NPM](https://www.npmjs.com/package/visitor-counter)
+Minimal effort way of tracking the amount of visitors on your website.  
+Uses [Mongo DB](https://www.mongodb.com/) to store stats.
 
-Demo:  
+[![npm](https://img.shields.io/npm/v/visitor-counter)](https://www.npmjs.com/package/visitor-counter)
+[![Downloads](https://img.shields.io/npm/dt/visitor-counter)](https://www.npmjs.com/package/visitor-counter)
+[![Last commit](https://img.shields.io/github/last-commit/erikthalen/visitor-counter)](https://github.com/erikthalen/visitor-counter/commits/main)
+[![Sponsors](https://img.shields.io/github/sponsors/erikthalen)](https://github.com/erikthalen)
+
+## Demo:
+
 https://counter.xxxxxxxxxx.xyz/
 
+## Usage
+
 ```js
-// Example usage:
+// Node http server
 import http from 'http'
 import visitorCounter from 'visitor-counter'
 
@@ -32,7 +40,7 @@ httpServer.listen(3333, () => console.log('running on http://localhost:3333'))
 ```
 
 ```js
-// Express example
+// Express
 import express from 'express'
 import visitorCounter from 'visitor-counter'
 const app = express()
@@ -47,17 +55,20 @@ app.get('/', async (req, res) => {
 app.listen(3000)
 ```
 
+## API
+
 ```js
-// api
-stats.record(req, res) // track visitor
-stats.get() // get all stats
-stats.get(from, to) // get stats within date range
-stats.visitors() // get current amount of visitors
+await stats.record(req, res) // track visitor
+await stats.get() // get all stats
+await stats.get(from, to) // get stats within date range
+await stats.visitors() // get current amount of visitors
 ```
 
 options:
 | Name | Description | Type | Default |
 |----------|-------------------------------------------------------|--------|------------------------------|
-| `mongourl` | url to mongodb server | String | 'mongodb://localhost:27017/' |
-| `id` | collections name prefix, when using multiple counters | String | 'default' |
-| `ttl` | time in s between visitors are flushed | Number | 3600 |
+| `mongourl` | url to mongodb server | String | `'mongodb://localhost:27017'` |
+| `id` | collections name prefix, when using multiple counters | String | `'default'` |
+| `ttl` | time in seconds between visitors are flushed | Number | `3600` |
+| `dbName` | Name of the database to store stats in | String | `'visitor-counter-db'` |
+| `cookieKey` | Key of coolie to store visitor id under | String | `'visitor-counter-id'` |

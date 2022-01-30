@@ -24,7 +24,7 @@
     "counter",
     "express"
   ],
-  "author": "",
+  "author": "erik thalen",
   "license": "ISC",
   "dependencies": {
     "fast-geoip": "^1.1.56",
