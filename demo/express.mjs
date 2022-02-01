@@ -1,8 +1,8 @@
 import express from 'express'
-import visitorCounter from '../lib/index.js'
+import counter from '../lib/index.mjs'
 
 const app = express()
-const stats = await visitorCounter()
+const stats = await counter()
 
 app.use(await stats.record)
 

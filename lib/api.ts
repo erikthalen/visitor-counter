@@ -1,15 +1,15 @@
-import geoip from 'fast-geoip'
+import geoip, { ipInfo } from 'fast-geoip'
 import { IncomingMessage } from 'http'
 
 const getCountryName = new Intl.DisplayNames(['en'], { type: 'region' })
 
 export const makeRecord = async (req: IncomingMessage) => {
-  const forwardedForHeaders = Array.isArray(req.headers['x-forwarded-for']) ? req.headers['x-forwarded-for'][0] : req.headers['x-forwarded-for'];
+  const forwardedForHeaders = Array.isArray(req.headers['x-forwarded-for']) ? req.headers['x-forwarded-for'][0] : req.headers['x-forwarded-for'] || '';
   const ip = forwardedForHeaders.split(',')[0] || req.socket.remoteAddress
 
   if (!ip || ip === '::ffff:127.0.0.1') return
 
-  const location = await geoip.lookup(ip)
+  const location: ipInfo = await geoip.lookup(ip)
 
   return {
     ip,
