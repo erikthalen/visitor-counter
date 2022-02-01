@@ -13,6 +13,7 @@
   },
   "scripts": {
     "dev": "nodemon demo/server.js",
+    "ts": "ts-node lib/index.ts",
     "start": "node demo/server.js",
     "express": "nodemon demo/express.js"
   },
@@ -31,6 +32,8 @@
     "mongodb": "^4.3.1"
   },
   "devDependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.5"
   }
 }
