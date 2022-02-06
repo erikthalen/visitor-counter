@@ -6,7 +6,11 @@ const week = day * 7
 const month = day * 30.415
 const year = month * 12
 
-export const time = {
+type Time = {
+  [key: string]: number
+}
+
+export const time: Time = {
   second,
   minute,
   hour,

@@ -1,15 +1,24 @@
-import geoip, { ipInfo } from 'fast-geoip'
+import geoip from 'fast-geoip'
 import { IncomingMessage } from 'http'
+import { WithId } from 'mongodb'
 
 const getCountryName = new Intl.DisplayNames(['en'], { type: 'region' })
 
-export const makeRecord = async (req: IncomingMessage) => {
-  const forwardedForHeaders = Array.isArray(req.headers['x-forwarded-for']) ? req.headers['x-forwarded-for'][0] : req.headers['x-forwarded-for'] || '';
+export type VisitorRecord = {
+  ip: string,
+  countryCode: string | false,
+  country: string | false,
+  date: number
+}
+
+export const makeRecord = async (req: IncomingMessage): Promise<VisitorRecord | undefined> => {
+  const headers = req.headers['x-forwarded-for']
+  const forwardedForHeaders = Array.isArray(headers) ? headers[0] : headers || '';
   const ip = forwardedForHeaders.split(',')[0] || req.socket.remoteAddress
 
   if (!ip || ip === '::ffff:127.0.0.1') return
 
-  const location: ipInfo = await geoip.lookup(ip)
+  const location = await geoip.lookup(ip)
 
   return {
     ip,
@@ -19,10 +28,10 @@ export const makeRecord = async (req: IncomingMessage) => {
   }
 }
 
-export const model = async data => ({
+export const model = async (data: any[]) => ({
   total: data.length,
-  countries: data.reduce((acc, { country }) => {
-    return { ...acc, [country]: (acc[country] || 0) + 1 }
+  countries: data.reduce((acc: any, { country }: VisitorRecord) => {
+    return { ...acc, [country.toString()]: (acc[country.toString()] || 0) + 1 }
   }, {}),
   // data,
 })

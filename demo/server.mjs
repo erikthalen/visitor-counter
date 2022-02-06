@@ -1,7 +1,7 @@
 import http from 'http'
 import url from 'url'
 import indexHtml from './html.mjs'
-import counter from '../lib/index.mjs'
+import counter from '../dist/visitor-counter.esm.mjs'
 
 const params = (req, param) => {
   const query = url.parse(req.url, true).query

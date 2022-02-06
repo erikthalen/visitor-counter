@@ -52,7 +52,7 @@ app.get('/', async (req, res) => {
   res.send(JSON.stringify(await stats.get('month')))
 })
 
-app.listen(3000)
+app.listen(3333)
 ```
 
 ## API
@@ -71,4 +71,4 @@ await stats.visitors() // get current amount of visitors
 | `id` | collections name prefix, when using multiple counters | String | `'default'` |
 | `ttl` | time in seconds between visitors are flushed | Number | `3600` |
 | `dbName` | Name of the database to store stats in | String | `'visitor-counter-db'` |
-| `cookieKey` | Key of coolie to store visitor id under | String | `'visitor-counter-id'` |
+| `cookieKey` | Key of cookie to store visitor id under | String | `'visitor-counter-id'` |

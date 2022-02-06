@@ -4,6 +4,8 @@ import { makeRecord, model } from './api.js'
 import { db } from './db.js'
 import { time } from './time.js'
 
+import { IncomingMessage, OutgoingMessage } from 'http'
+
 export default async ({
   mongourl = 'mongodb://localhost:27017/',
   dbName = 'visitor-counter-db',
@@ -14,7 +16,7 @@ export default async ({
   const database = await db({ id, mongourl, dbName, ttl })
 
   return {
-    record: async (req, res, next) => {
+    record: async (req: IncomingMessage, res: OutgoingMessage, next: any) => {
       const visitorId = cookies(req.headers.cookie)[`${cookieKey}-${id}`]
 
       if (!(await database.getVisitor(visitorId))) {
@@ -27,7 +29,7 @@ export default async ({
       if (typeof next === 'function') next()
     },
 
-    get: async param => {
+    get: async (param: string | undefined) => {
       if (!param) return model(await database.get())
 
       const [start, finish] = param.split('-')

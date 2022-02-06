@@ -1,5 +1,5 @@
 import express from 'express'
-import counter from '../lib/index.mjs'
+import counter from '../dist/visitor-counter.esm.mjs'
 
 const app = express()
 const stats = await counter()

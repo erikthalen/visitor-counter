@@ -1,7 +1,8 @@
 import { terser } from 'rollup-plugin-terser'
+import typescript from '@rollup/plugin-typescript';
 
 export default {
-  input: 'lib/index.mjs',
+  input: 'lib/index.ts',
   output: [
     {
       file: 'dist/visitor-counter.cjs.js',
@@ -14,5 +15,5 @@ export default {
     },
   ],
   external: ['crypto', 'mongodb', 'fast-geoip'],
-  plugins: [terser()],
+  plugins: [typescript(), terser()],
 }
