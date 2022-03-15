@@ -48,6 +48,12 @@ const stats = await counter()
 
 app.use(await stats.record)
 
+/**
+ * optional ui-middleware
+ * navigate to "/visitor-counter" in your app to see ui
+ */
+app.use(await stats.ui)
+
 app.get('/', async (req, res) => {
   res.send(JSON.stringify(await stats.get('month')))
 })
@@ -59,6 +65,7 @@ app.listen(3000)
 
 ```js
 await stats.record(req, res) // track visitor
+await stats.ui(req, res) // middleware to activate ui
 await stats.get() // get all stats
 await stats.get(from, to) // get stats within date range
 await stats.visitors() // get current amount of visitors
