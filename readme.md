@@ -26,14 +26,18 @@ const httpServer = http.createServer(async (req, res) => {
   // add recorder in request handler
   await stats.record(req, res)
 
+  /**
+   * optional ui-middleware
+   * navigate to "/visitor-counter" in your app to see ui
+   */
+  await stats.ui(req, res)
+
   // get stats somewhere in your app
   // param can be either:
   // '2021,1,1' -> returns visitor count from date to now
   // '2021,1,1-2021,12,31' -> returns visitor count between dates
   // second | minute | hour | day | week | month | year -> helpers
-  const lastMonthVisitors = await stats.get('month')
-
-  res.end(JSON.stringify(lastMonthVisitors))
+  res.end(JSON.stringify(await stats.get('month')))
 })
 
 httpServer.listen(3333, () => console.log('running on http://localhost:3333'))
@@ -47,11 +51,6 @@ const app = express()
 const stats = await counter()
 
 app.use(await stats.record)
-
-/**
- * optional ui-middleware
- * navigate to "/visitor-counter" in your app to see ui
- */
 app.use(await stats.ui)
 
 app.get('/', async (req, res) => {
@@ -72,10 +71,11 @@ await stats.visitors() // get current amount of visitors
 ```
 
 ## Options:
-| Name | Description | Type | Default |
-|----------|-------------------------------------------------------|--------|------------------------------|
-| `mongourl` | url to mongodb server | String | `'mongodb://localhost:27017'` |
-| `id` | collections name prefix, when using multiple counters | String | `'default'` |
-| `ttl` | time in seconds between visitors are flushed | Number | `3600` |
-| `dbName` | Name of the database to store stats in | String | `'visitor-counter-db'` |
-| `cookieKey` | Key of coolie to store visitor id under | String | `'visitor-counter-id'` |
+
+| Name        | Description                                           | Type   | Default                       |
+| ----------- | ----------------------------------------------------- | ------ | ----------------------------- |
+| `mongourl`  | url to mongodb server                                 | String | `'mongodb://localhost:27017'` |
+| `id`        | collections name prefix, when using multiple counters | String | `'default'`                   |
+| `ttl`       | time in seconds between visitors are flushed          | Number | `3600`                        |
+| `dbName`    | Name of the database to store stats in                | String | `'visitor-counter-db'`        |
+| `cookieKey` | Key of cookie to store visitor-id under               | String | `'visitor-counter-id'`        |
