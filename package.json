@@ -21,7 +21,8 @@
     "dev": "nodemon demo/server.mjs",
     "start": "node demo/server.mjs",
     "express": "nodemon demo/express.mjs",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "fake-users": "node demo/faker.mjs"
   },
   "keywords": [
     "node",

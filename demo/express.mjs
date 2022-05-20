@@ -2,7 +2,7 @@ import express from 'express'
 import counter from '../lib/index.mjs'
 
 const app = express()
-const stats = await counter({ id: 'foo' })
+const stats = await counter()
 
 app.use(await stats.record)
 app.use(await stats.ui)

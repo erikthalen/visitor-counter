@@ -7,9 +7,6 @@ const getCountryName = new Intl.DisplayNames(['en'], { type: 'region' })
 
 const database = await db({
   mongourl: 'mongodb://localhost:27017/',
-  id: 'demo-page',
-  dbName: 'visitor-counter-db',
-  ttl: 1800,
 })
 
 const COUNT = 10000
@@ -36,3 +33,5 @@ try {
 } catch (error) {
   console.log('Error creating fake visitors:', error)
 }
+
+process.exit(0)

@@ -1,7 +1,7 @@
 import http from 'http'
 import counter from '../lib/index.mjs'
 
-const stats = await counter({ id: 'demo-page', ttl: 1800 })
+const stats = await counter()
 
 const httpServer = http.createServer(async (req, res) => {
   await stats.record(req, res)
