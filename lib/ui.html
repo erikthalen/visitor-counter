@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>visitor-counter</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <code>
+      <pre style="margin: 0">📈👀
+      
+<input style="width: 236px" type="range" min="0" max="7" step="1" value="5">
+ |   |   |   |   |   |   |   |
+ s   m   h   d   w   m   y  all
+
+
+</pre>
+
+      <div class="loading"></div>
+      <div style="position: relative; width: 100%">
+        <canvas id="canvas"></canvas>
+        <canvas id="canvas2"></canvas>
+      </div>
+    </code>
+    <script>
+      const map = {
+        0: '/?range=second',
+        1: '/?range=minute',
+        2: '/?range=hour',
+        3: '/?range=day',
+        4: '/?range=week',
+        5: '/?range=month',
+        6: '/?range=year',
+        7: '/?range=all',
+      }
+
+      let canvas = null
+      let canvas2 = null
+      const input = document.querySelector('input')
+
+      input.addEventListener('input', ({ target: { value } }) =>
+        updateOutput(value)
+      )
+
+      updateOutput(input.value)
+
+      async function updateOutput(value) {
+        canvas && canvas.destroy()
+        canvas2 && canvas2.destroy()
+        loading(true)
+
+        const response = await fetch('/visitor-counter' + map[value])
+        const text = await response.text()
+        const json = JSON.parse(text)
+
+        console.log(json)
+
+        const data = {
+          labels: Object.keys(json.dates),
+          datasets: [
+            {
+              label: '',
+              backgroundColor: 'dodgerblue',
+              borderColor: 'dodgerblue',
+              data: Object.values(json.dates),
+              fill: {
+                target: 'origin',
+                above: 'RGBA(30, 144, 255, 0.2)',
+              },
+            },
+          ],
+        }
+
+        Chart.defaults.font.family = 'monospace'
+
+        let delayed
+        let delayed2
+
+        const config = {
+          type: 'line',
+          data: data,
+          options: {
+            elements: {
+              line: {
+                tension: 0.1,
+              },
+              point: {
+                radius: 2,
+                hitRadius: 15,
+                hoverRadius: 2,
+              },
+            },
+            interaction: {
+              mode: 'nearest',
+            },
+            plugins: {
+              legend: false,
+              tooltip: {
+                titleFont: { weight: 'normal', size: 12 },
+                bodyFont: { weight: 'normal', size: 48 },
+                titleSpacing: 0,
+                bodySpacing: 0,
+                titleColor: '#fff',
+                bodyColor: '#fff',
+                backgroundColor: '#111',
+                borderColor: '#333',
+                padding: {
+                  top: 16,
+                  right: 84,
+                  bottom: 16,
+                  left: 16,
+                },
+                cornerRadius: 10,
+                displayColors: false,
+                caretSize: 8,
+                caretPadding: 10,
+              },
+            },
+            animation: {
+              onComplete: () => {
+                delayed = true
+              },
+              delay: context => {
+                let delay = 0
+                if (
+                  context.type === 'data' &&
+                  context.mode === 'default' &&
+                  !delayed
+                ) {
+                  delay = context.dataIndex * 20 + context.datasetIndex * 100
+                }
+                return delay
+              },
+            },
+          },
+        }
+
+        const config2 = {
+          type: 'pie',
+          data: {
+            labels: Object.keys(json.countries),
+            datasets: [
+              {
+                label: '',
+                backgroundColor: 'dodgerblue',
+                borderColor: 'red',
+                data: Object.values(json.countries),
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: false,
+              },
+            },
+          },
+        }
+
+        canvas = new Chart(document.getElementById('canvas'), config)
+        canvas2 = new Chart(document.getElementById('canvas2'), config2)
+        loading(false)
+      }
+
+      function loading(isLoading) {
+        const loading = document.querySelector('.loading')
+        loading.innerHTML = isLoading ? 'Loading...' : ''
+      }
+    </script>
+  </body>
+</html>

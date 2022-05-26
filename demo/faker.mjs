@@ -7,17 +7,21 @@ const getCountryName = new Intl.DisplayNames(['en'], { type: 'region' })
 
 const database = await db({
   mongourl: 'mongodb://localhost:27017/',
+  id: 'default',
 })
 
 const COUNT = 10000
 
 const fakeIt = () => {
   return Promise.all(
-    [...Array(COUNT)].map(async () => {
+    [...Array(COUNT)].map(async (_, i) => {
       const ip = randomIP()
       const location = await geoip.lookup(ip)
 
-      return await database.set({
+      console.clear()
+      console.log(`Created ${i} fake users`)
+
+      await database.set({
         ip,
         countryCode: location?.country || false,
         country: location ? getCountryName.of(location.country) : false,
@@ -28,8 +32,9 @@ const fakeIt = () => {
 }
 
 try {
-  const res = await fakeIt()
-  console.log(`Done creating ${COUNT} fake users`)
+  await fakeIt()
+  await fakeIt()
+  console.log(`Done creating ${COUNT * 2} fake users`)
 } catch (error) {
   console.log('Error creating fake visitors:', error)
 }

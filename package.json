@@ -1,6 +1,6 @@
 {
   "name": "visitor-counter",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Tracks number of visitors on your website",
   "main": "./dist/visitor-counter.cjs.js",
   "module": "./dist/visitor-counter.esm.mjs",
