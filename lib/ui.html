@@ -57,22 +57,6 @@
 
         console.log(json)
 
-        const data = {
-          labels: Object.keys(json.dates),
-          datasets: [
-            {
-              label: '',
-              backgroundColor: 'dodgerblue',
-              borderColor: 'dodgerblue',
-              data: Object.values(json.dates),
-              fill: {
-                target: 'origin',
-                above: 'RGBA(30, 144, 255, 0.2)',
-              },
-            },
-          ],
-        }
-
         Chart.defaults.font.family = 'monospace'
 
         let delayed
@@ -80,7 +64,20 @@
 
         const config = {
           type: 'line',
-          data: data,
+          data: {
+            labels: Object.keys(json.dates),
+            datasets: [
+              {
+                label: '',
+                borderColor: 'dodgerblue',
+                data: Object.values(json.dates),
+                fill: {
+                  target: 'origin',
+                  above: 'RGBA(30, 144, 255, 0.05)',
+                },
+              },
+            ],
+          },
           options: {
             elements: {
               line: {
@@ -104,8 +101,7 @@
                 bodySpacing: 0,
                 titleColor: '#fff',
                 bodyColor: '#fff',
-                backgroundColor: '#111',
-                borderColor: '#333',
+                backgroundColor: 'rgba(0,0,0,0.9)',
                 padding: {
                   top: 16,
                   right: 84,
@@ -122,14 +118,14 @@
               onComplete: () => {
                 delayed = true
               },
-              delay: context => {
+              delay: (context, idx) => {
                 let delay = 0
                 if (
                   context.type === 'data' &&
                   context.mode === 'default' &&
                   !delayed
                 ) {
-                  delay = context.dataIndex * 20 + context.datasetIndex * 100
+                  delay = context.dataIndex * 5 + context.datasetIndex * 10
                 }
                 return delay
               },
@@ -145,7 +141,7 @@
               {
                 label: '',
                 backgroundColor: 'dodgerblue',
-                borderColor: 'red',
+                borderColor: '#eee',
                 data: Object.values(json.countries),
               },
             ],
@@ -164,7 +160,7 @@
         }
 
         canvas = new Chart(document.getElementById('canvas'), config)
-        canvas2 = new Chart(document.getElementById('canvas2'), config2)
+        // canvas2 = new Chart(document.getElementById('canvas2'), config2)
         loading(false)
       }
 
