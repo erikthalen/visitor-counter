@@ -66,8 +66,8 @@ app.listen(3000)
 await stats.record(req, res) // track visitor
 await stats.ui(req, res) // middleware to activate ui
 await stats.get() // get all stats
-await stats.get(Date.parse('2022/02/01')) // get stats from date
-await stats.get(Date.parse('2022/03/01'), Date.parse('2022/04/01')) // get stats within date range
+await stats.get('2022/02/01') // get stats from date
+await stats.get('2022/03/01', '2022/04/01') // get stats within date range
 await stats.visitors() // get current amount of visitors
 ```
 
