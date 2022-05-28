@@ -19,6 +19,7 @@
   },
   "scripts": {
     "dev": "rollup -c -w | nodemon demo/server.mjs",
+    "start": "node demo/server.mjs",
     "express": "nodemon demo/express.mjs",
     "build": "rollup -c",
     "fake-users": "node demo/faker.mjs"
