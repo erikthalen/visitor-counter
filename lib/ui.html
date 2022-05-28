@@ -58,6 +58,11 @@
 
         console.log(json)
 
+        if(!json.total) {
+          loading(false, 'No visitors in this period')
+          return
+        }
+
         Chart.defaults.font.family = 'monospace'
 
         let delayed
@@ -165,9 +170,9 @@
         loading(false)
       }
 
-      function loading(isLoading) {
+      function loading(isLoading, msg = '') {
         const loading = document.querySelector('.loading')
-        loading.innerHTML = isLoading ? 'Loading...' : ''
+        loading.innerHTML = isLoading ? 'Loading...' : msg
       }
     </script>
   </body>

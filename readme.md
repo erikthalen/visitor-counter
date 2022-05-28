@@ -66,16 +66,14 @@ app.listen(3000)
 await stats.record(req, res) // track visitor
 await stats.ui(req, res) // middleware to activate ui
 await stats.get() // get all stats
-await stats.get(from, to) // get stats within date range
+await stats.get(Date.parse('2022/02/01')) // get stats from date
+await stats.get(Date.parse('2022/03/01'), Date.parse('2022/04/01')) // get stats within date range
 await stats.visitors() // get current amount of visitors
 ```
 
 ## Options:
 
-| Name        | Description                                           | Type   | Default                       |
-| ----------- | ----------------------------------------------------- | ------ | ----------------------------- |
-| `mongourl`  | url to mongodb server                                 | String | `'mongodb://localhost:27017'` |
-| `id`        | collections name prefix, when using multiple counters | String | `'default'`                   |
-| `ttl`       | time in seconds between visitors are flushed          | Number | `3600`                        |
-| `dbName`    | Name of the database to store stats in                | String | `'visitor-counter-db'`        |
-| `cookieKey` | Key of cookie to store visitor-id under               | String | `'visitor-counter-id'`        |
+| Name       | Description                                           | Type   | Default                       |
+| ---------- | ----------------------------------------------------- | ------ | ----------------------------- |
+| `mongourl` | url to mongodb server                                 | String | `'mongodb://127.0.0.1:27017'` |
+| `id`       | collections name prefix, when using multiple counters | String | `'default'`                   |
