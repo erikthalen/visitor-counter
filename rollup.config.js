@@ -1,5 +1,6 @@
 import { terser } from 'rollup-plugin-terser'
 import htmlparts from 'rollup-plugin-htmlparts'
+import inline from 'rollup-plugin-inline-js'
 
 export default {
   input: 'lib/index.mjs',
@@ -15,5 +16,9 @@ export default {
     },
   ],
   external: ['crypto', 'mongodb', 'fast-geoip', 'url', 'fs', 'path'],
-  plugins: [htmlparts('lib/ui.html'), terser()],
+  plugins: [
+    inline('lib/ui.js'), // inline ui.js into ui.html
+    htmlparts('lib/ui.html'), // inline ui.html into index.mjs
+    terser(),
+  ],
 }
