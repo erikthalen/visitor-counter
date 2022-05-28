@@ -1,4 +1,5 @@
 import { terser } from 'rollup-plugin-terser'
+import htmlparts from 'rollup-plugin-htmlparts'
 
 export default {
   input: 'lib/index.mjs',
@@ -13,6 +14,6 @@ export default {
       format: 'es',
     },
   ],
-  external: ['crypto', 'mongodb', 'fast-geoip'],
-  plugins: [terser()],
+  external: ['crypto', 'mongodb', 'fast-geoip', 'url', 'fs', 'path'],
+  plugins: [htmlparts('lib/ui.html'), terser()],
 }

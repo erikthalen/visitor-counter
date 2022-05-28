@@ -1,5 +1,5 @@
 import http from 'http'
-import counter from '../lib/index.mjs'
+import counter from '../dist/visitor-counter.esm.mjs'
 
 const stats = await counter()
 
