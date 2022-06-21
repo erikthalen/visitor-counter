@@ -20,7 +20,7 @@ import http from 'http'
 import counter from 'visitor-counter'
 
 // init the package with a mongodb url
-const stats = await counter({ mongourl: 'mongodb://localhost:27017/' })
+const stats = await counter()
 
 const httpServer = http.createServer(async (req, res) => {
   // add recorder in request handler
