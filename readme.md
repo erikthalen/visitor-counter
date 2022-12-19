@@ -8,10 +8,6 @@ Uses [Mongo DB](https://www.mongodb.com/) to store stats.
 [![Last commit](https://img.shields.io/github/last-commit/erikthalen/visitor-counter)](https://github.com/erikthalen/visitor-counter/commits/main)
 [![Sponsors](https://img.shields.io/github/sponsors/erikthalen)](https://github.com/erikthalen)
 
-## Demo:
-
-https://counter.xxxxxxxxxx.xyz/
-
 ## Usage
 
 ```js
